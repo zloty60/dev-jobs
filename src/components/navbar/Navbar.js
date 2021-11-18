@@ -22,7 +22,10 @@ const NavbarButton = ({ txt, marginRight }) => (
 
 export function Navbar() {
   return (
-    <AppBar position="static" sx={{ backgroundColor: indigo[500] }}>
+    <AppBar
+      position="static"
+      sx={{ backgroundColor: indigo[500], boxShadow: "none" }}
+    >
       <Container>
         <Toolbar
           sx={{ paddingLeft: "0px !important", paddingRight: "0px !important" }}
