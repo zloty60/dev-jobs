@@ -17,28 +17,48 @@ const CardChip = ({ label }) => {
         color: indigo[400],
         letterSpacing: "0.4px",
         cursor: "pointer",
+        textTransform: "capitalize",
       }}
     />
   );
 };
 
-export function JobOfferCard() {
+export function JobOfferCard({ jobOffer }) {
+  const {
+    category,
+    location,
+    company,
+    experienceLevel,
+    id,
+    jobTitle,
+    logoUrl,
+    salaryMax,
+    salaryMin,
+  } = jobOffer;
   return (
     <Card
       sx={{
-        maxWidth: 370,
         boxShadow: 1,
         "&:hover": { boxShadow: 3, cursor: "pointer" },
       }}
     >
       <Box sx={{ padding: "20px" }}>
-        <Avatar
+        <Box
+          component="img"
+          src={logoUrl}
           alt="company logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-          sx={{ marginBottom: "15px", width: "32px", height: "32px" }}
+          sx={{ height: "32px", maxWidth: "60px", objectFit: "contain" }}
         />
-        <Typography variant="h6" component="h2" gutterBottom fontSize="19px">
-          Senior Software Engineer
+        <Typography
+          variant="h6"
+          component="h2"
+          gutterBottom
+          fontSize="19px"
+          sx={{
+            textTransform: "capitalize",
+          }}
+        >
+          {jobTitle}
         </Typography>
         <Box display="flex" alignItems="center">
           <BusinessIcon />
@@ -48,14 +68,17 @@ export function JobOfferCard() {
             component="h3"
             fontSize="15px"
             color="textSecondary"
+            sx={{
+              textTransform: "capitalize",
+            }}
           >
-            Facebook
+            {company}
           </Typography>
         </Box>
         <Stack direction="row" spacing={1} sx={{ marginTop: "25px" }}>
-          <CardChip label="Warszawa" />
-          <CardChip label="Junior" />
-          <CardChip label="Javascript" />
+          <CardChip label={location} />
+          <CardChip label={experienceLevel} />
+          <CardChip label={category} />
         </Stack>
         <Typography
           variant="h6"
@@ -63,7 +86,7 @@ export function JobOfferCard() {
           color={indigo[600]}
           sx={{ marginTop: "25px", fontSize: "17px" }}
         >
-          12 000 - 17 000 PLN
+          {salaryMin} - {salaryMax} PLN
         </Typography>
       </Box>
     </Card>
