@@ -23,10 +23,14 @@ const NavbarButton = ({ txt, marginRight }) => (
 export function Navbar() {
   return (
     <AppBar
-      position="static"
-      sx={{ backgroundColor: indigo[500], boxShadow: "none" }}
+      position="fixed"
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: indigo[500],
+        boxShadow: "none",
+      }}
     >
-      <Container>
+      <Container maxWidth="xl">
         <Toolbar
           sx={{ paddingLeft: "0px !important", paddingRight: "0px !important" }}
         >

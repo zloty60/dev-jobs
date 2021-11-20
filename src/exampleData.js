@@ -60,7 +60,7 @@ export const jobOffers = [
       "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/189px-Apple_logo_black.svg.png",
   },
   {
-    id: 5,
+    id: 6,
     category: "frontend",
     location: "warszawa",
     company: "facebook",
@@ -70,5 +70,53 @@ export const jobOffers = [
     salaryMax: 17000,
     logoUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png",
+  },
+  {
+    id: 7,
+    category: "frontend",
+    location: "warszawa",
+    company: "facebook",
+    experienceLevel: "senior",
+    jobTitle: "Senior Software Engineer",
+    salaryMin: 12000,
+    salaryMax: 17000,
+    logoUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Microsoft_logo_%282012%29.svg/1920px-Microsoft_logo_%282012%29.svg.png",
+  },
+  {
+    id: 8,
+    category: "frontend",
+    location: "warszawa",
+    company: "facebook",
+    experienceLevel: "senior",
+    jobTitle: "Senior Software Engineer",
+    salaryMin: 12000,
+    salaryMax: 17000,
+    logoUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+  },
+  {
+    id: 9,
+    category: "frontend",
+    location: "warszawa",
+    company: "facebook",
+    experienceLevel: "senior",
+    jobTitle: "Senior Software Engineer",
+    salaryMin: 12000,
+    salaryMax: 17000,
+    logoUrl:
+      "https://upload.wikimedia.org/wikipedia/sco/thumb/9/9f/Twitter_bird_logo_2012.svg/1200px-Twitter_bird_logo_2012.svg.png",
+  },
+  {
+    id: 10,
+    category: "frontend",
+    location: "warszawa",
+    company: "facebook",
+    experienceLevel: "senior",
+    jobTitle: "Senior Software Engineer",
+    salaryMin: 12000,
+    salaryMax: 17000,
+    logoUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Airbnb_Logo_B%C3%A9lo.svg/360px-Airbnb_Logo_B%C3%A9lo.svg.png",
   },
 ];
