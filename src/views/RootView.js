@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Navbar } from "../components/navbar/Navbar";
 import { JobOfferCard } from "../components/jobOfferCard/JobOfferCard";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -15,7 +14,6 @@ export function RootView() {
 
   return (
     <>
-      <Navbar />
       <Box sx={{ display: "flex" }}>
         <JobOfferFilterDrawer
           isMobileDrawerOpen={isMobileDrawerOpen}
@@ -23,7 +21,6 @@ export function RootView() {
         />
         <Box sx={{ flexGrow: 1 }}>
           <Container>
-            <div style={{ marginTop: "100px" }}></div>
             <Grid container spacing={3}>
               {jobOffers.map((jobOffer) => (
                 <Grid key={jobOffer.id} item xs={12} sm={6} lg={4}>
