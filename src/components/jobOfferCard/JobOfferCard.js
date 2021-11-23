@@ -1,7 +1,6 @@
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { indigo } from "@mui/material/colors";
-import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -29,7 +28,6 @@ export function JobOfferCard({ jobOffer }) {
     location,
     company,
     experienceLevel,
-    id,
     jobTitle,
     logoUrl,
     salaryMax,

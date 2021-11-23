@@ -1,24 +1,17 @@
+import { Link, useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 
+import { categoryPath } from "../../../routes/AppRoutes";
+
 export function ProgrammingLanguageAvatar({
   value,
   src,
   selectedProgrammingLanguage,
-  selectProgrammingLanguage,
 }) {
-  // console.log(selectedProgrammingLanguage);
-
-  const handleSelectProgrammingLanguage = (value) => {
-    if (selectedProgrammingLanguage === value) {
-      selectProgrammingLanguage("all");
-    } else {
-      selectProgrammingLanguage(value);
-    }
-  };
-
+  const location = useLocation();
   const setOpacity = (value) => {
     if (selectedProgrammingLanguage === "all") {
       return "1";
@@ -46,8 +39,15 @@ export function ProgrammingLanguageAvatar({
   return (
     <Grid item sx={{ textAlign: "center" }}>
       <Box
-        onClick={() => handleSelectProgrammingLanguage(value)}
+        component={Link}
+        to={
+          value === selectedProgrammingLanguage
+            ? `/${location.search}`
+            : `${categoryPath}/${value}${location.search}`
+        }
         sx={{
+          textDecoration: "none",
+          color: "#000000",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

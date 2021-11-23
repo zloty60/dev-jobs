@@ -3,6 +3,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { indigo } from "@mui/material/colors";
 
+// eslint-disable-next-line no-unused-vars
 import { firebaseInit } from "./firebase/config/index";
 import { AppRoutes } from "./routes/AppRoutes";
 

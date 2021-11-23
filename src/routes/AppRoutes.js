@@ -15,6 +15,7 @@ export function AppRoutes() {
       <Box sx={{ marginTop: "100px", marginBottom: "50px" }}>
         <Routes>
           <Route path="/" element={<RootView />} />
+          <Route path="/category/:category" element={<RootView />} />
           <Route path={loginPath} element={<Login />} />
           <Route path={registerPath} element={<Signup />} />
           <Route path="*" element={<NotFound />} />
@@ -26,3 +27,4 @@ export function AppRoutes() {
 
 export const loginPath = "/logowanie";
 export const registerPath = "/utworz-konto";
+export const categoryPath = "/category";
