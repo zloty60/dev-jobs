@@ -1,3 +1,4 @@
+import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
@@ -5,6 +6,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { indigo } from "@mui/material/colors";
 
 import { programmingLanguages } from "../../data/programmingLanguages";
+import { validationSchema } from "./validationSchema";
+import { addJobOffer, updateJobOffer } from "../../firebase/services/jobOffers";
 
 const selectProps = {
   MenuProps: {
@@ -59,7 +62,44 @@ const locations = [
   },
 ];
 
-export function Form({ formik }) {
+export function Form({
+  selectedJobOffer,
+  setFormSent,
+  setSuccessfullyAdded,
+  setError,
+  id,
+}) {
+  const initialValues = selectedJobOffer ?? {
+    jobTitle: "",
+    company: "",
+    location: "",
+    salaryMin: "",
+    salaryMax: "",
+    category: "",
+    experienceLevel: "",
+    createdAt: new Date(),
+  };
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        if (selectedJobOffer) {
+          await updateJobOffer(values, id);
+        } else {
+          const response = await addJobOffer(values);
+        }
+
+        setFormSent(true);
+        setSuccessfullyAdded(true);
+      } catch (e) {
+        console.log(e);
+        setFormSent(true);
+        setError(true);
+      }
+    },
+  });
   return (
     <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
@@ -190,7 +230,7 @@ export function Form({ formik }) {
             : `${indigo[600]} !important`,
         }}
       >
-        dodaj ogłoszenie
+        {id ? "zaktualizuj" : "dodaj"} ogłoszenie
       </LoadingButton>
     </form>
   );
