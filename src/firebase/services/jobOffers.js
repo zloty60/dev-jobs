@@ -42,8 +42,8 @@ export function addJobOffer(jobOffer) {
   return db.collection("jobOffers").add(jobOffer);
 }
 
-export function updateJobOffer(jobOffer) {
-  return db.collection("jobOffers").doc(jobOffer.id).update(jobOffer);
+export function updateJobOffer(jobOffer, id) {
+  return db.collection("jobOffers").doc(id).update(jobOffer);
 }
 
 export function deleteJobOffer(jobOfferId) {
