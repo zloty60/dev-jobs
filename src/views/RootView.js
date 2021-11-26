@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { JobOfferCard } from "../components/jobOfferCard/JobOfferCard";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import SortIcon from "@mui/icons-material/Sort";
 
+import { JobOfferCard } from "../components/jobOfferCard/JobOfferCard";
+import { JobOfferCardSkeleton } from "../components/jobOfferCard/JobOfferCardSkeleton";
 import { useFirestoreCollection } from "../hooks/useFirestoreCollection";
 import { getAllJobOffers } from "../firebase/services/jobOffers";
 import { JobOfferFilterDrawer } from "../components/layout/JobOfferFilterDrawer/JobOfferFilterDrawer";
@@ -53,7 +54,13 @@ export function RootView() {
         />
         <Box sx={{ flexGrow: 1 }}>
           <Container>
-            <p>ladowanie....</p>
+            <Grid container spacing={3}>
+              {[0, 1, 2, 3, 4, 5, 6, 8, 9].map((el) => (
+                <Grid key={el} item xs={12} sm={6} lg={4}>
+                  <JobOfferCardSkeleton />
+                </Grid>
+              ))}
+            </Grid>
           </Container>
         </Box>
       </Box>
