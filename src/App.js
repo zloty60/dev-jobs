@@ -1,3 +1,4 @@
+import { BrowserRouter } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -22,7 +23,9 @@ function App() {
       <CssBaseline />
       <GlobalStyles styles={{ body: { backgroundColor: "#F6F9FC" } }} />
       <ThemeProvider theme={theme}>
-        <AppRoutes />
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );

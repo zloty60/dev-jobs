@@ -49,6 +49,7 @@ export function Navbar() {
           </Box>
           <NavbarButton txt="Logowanie" to={loginPath} marginRight={2} />
           <NavbarButton txt="Utwórz konto" to={registerPath} />
+          <NavbarButton txt="dodaj ogłoszenie" to={"/dodaj"} />
         </Toolbar>
       </Container>
     </AppBar>
