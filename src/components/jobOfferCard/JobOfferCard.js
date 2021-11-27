@@ -4,7 +4,9 @@ import Typography from "@mui/material/Typography";
 import { indigo } from "@mui/material/colors";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import BusinessIcon from "@mui/icons-material/Business";
+import { pink } from "@mui/material/colors";
 
 import { CardChip } from "../dataDisplay/CardChip";
 import { jobOfferDetailsPath } from "../../routes/AppRoutes";
@@ -34,12 +36,26 @@ export function JobOfferCard({ jobOffer }) {
         }}
       >
         <Box sx={{ padding: "20px" }}>
-          <Box
-            component="img"
-            src={logoUrl}
-            alt="company logo"
-            sx={{ height: "32px", maxWidth: "60px", objectFit: "contain" }}
-          />
+          {logoUrl ? (
+            <Box
+              component="img"
+              src={logoUrl}
+              alt="company logo"
+              sx={{ height: "32px", maxWidth: "60px", objectFit: "contain" }}
+            />
+          ) : (
+            <Avatar
+              sx={{
+                width: "32px",
+                height: "32px",
+                backgroundColor: pink["A400"],
+                marginBottom: 1,
+              }}
+            >
+              <BusinessIcon sx={{ fontSize: 17 }} />
+            </Avatar>
+          )}
+
           <Typography
             variant="h6"
             component="h2"
