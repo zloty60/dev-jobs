@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -8,16 +9,30 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import { indigo, pink } from "@mui/material/colors";
 import BusinessIcon from "@mui/icons-material/Business";
+import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 
 import { JobOfferDetailsSkeleton } from "./JobOfferDetailsSkeleton";
+import { DeleteOfferAlert } from "./DeleteOfferAlert";
 import { CardChip } from "../../components/dataDisplay/CardChip";
 import { useFirestoreDoc } from "../../hooks/useFirestoreDoc";
 import { getSingleJobOffer } from "../../firebase/services/jobOffers";
 import { formatDisplaySalary } from "../../utils/formatDisplaySalary";
+import { editJobOfferPath } from "../../routes/AppRoutes";
 
 export function JobOfferDetails() {
   const { id } = useParams();
+  const [isOpenDeleteAlert, setOpenDeleteAlert] = useState(false);
+  const [isOfferDeleted, setOfferDeleted] = useState(false);
   const { status, data, error } = useFirestoreDoc(getSingleJobOffer, id);
+
+  if (isOfferDeleted) {
+    return (
+      <Container maxWidth="md">
+        <Alert severity="success">Ogłoszenie zostało pomyślnie usunięte!</Alert>
+      </Container>
+    );
+  }
 
   if (error) {
     return (
@@ -54,6 +69,29 @@ export function JobOfferDetails() {
 
     return (
       <Container maxWidth="md">
+        <Box
+          sx={{
+            marginBottom: 2,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button
+            component={Link}
+            to={`${editJobOfferPath}/${id}`}
+            variant="outlined"
+            sx={{ marginRight: 2 }}
+          >
+            edytuj ogłoszenie
+          </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => setOpenDeleteAlert(true)}
+          >
+            usuń ogłoszenie
+          </Button>
+        </Box>
         <Card>
           <Box
             sx={{
@@ -166,6 +204,12 @@ export function JobOfferDetails() {
             <Typography variant="body1">{jobDescription}</Typography>
           </Box>
         </Card>
+        <DeleteOfferAlert
+          open={isOpenDeleteAlert}
+          setOpenDeleteAlert={setOpenDeleteAlert}
+          id={id}
+          setOfferDeleted={setOfferDeleted}
+        />
       </Container>
     );
   }
