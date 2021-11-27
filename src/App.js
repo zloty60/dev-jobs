@@ -15,13 +15,28 @@ const theme = createTheme({
       dark: indigo[700],
     },
   },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow:
+            " 0  5px 10px rgba(154,160,185,0.05),0 15px 40px rgba(166,173,201,0.2)",
+        },
+      },
+    },
+  },
 });
 
 function App() {
   return (
     <>
       <CssBaseline />
-      <GlobalStyles styles={{ body: { backgroundColor: "#F6F9FC" } }} />
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: "#F6F9FC" },
+          a: { textDecoration: "none" },
+        }}
+      />
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <AppRoutes />
