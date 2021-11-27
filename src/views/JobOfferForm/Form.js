@@ -77,6 +77,7 @@ export function Form({
     salaryMax: "",
     category: "",
     experienceLevel: "",
+    jobDescription: "",
     createdAt: new Date(),
   };
 
@@ -217,6 +218,25 @@ export function Form({
               </MenuItem>
             ))}
           </TextField>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            name="jobDescription"
+            value={formik.values.jobDescription}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.jobDescription &&
+              Boolean(formik.errors.jobDescription)
+            }
+            helperText={
+              formik.touched.jobDescription && formik.errors.jobDescription
+            }
+            multiline
+            rows={10}
+            fullWidth
+            label="Opis ogłoszenia"
+          />
         </Grid>
       </Grid>
       <LoadingButton

@@ -29,4 +29,8 @@ export const validationSchema = yup.object({
     ),
   category: yup.string().required("Kategoria jest wymagana"),
   experienceLevel: yup.string().required("Poziom doświadczenia jest wymagany"),
+  jobDescription: yup
+    .string()
+    .required("Opis ogłoszenia jest wymagany")
+    .max(5000, "Maksymalna ilość znaków dla opisu ogłoszenia to 5000"),
 });
