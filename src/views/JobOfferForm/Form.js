@@ -68,6 +68,7 @@ export function Form({
   setSuccessfullyAdded,
   setError,
   id,
+  setIdAddedOffer,
 }) {
   const initialValues = selectedJobOffer ?? {
     jobTitle: "",
@@ -90,6 +91,8 @@ export function Form({
           await updateJobOffer(values, id);
         } else {
           const response = await addJobOffer(values);
+          const id = response.id;
+          setIdAddedOffer(id);
         }
 
         setFormSent(true);

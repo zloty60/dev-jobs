@@ -6,7 +6,7 @@ import { RootView } from "../views/RootView";
 import { NotFound } from "../views/NotFound";
 import { Login } from "../views/Login";
 import { Signup } from "../views/Signup";
-import { OfferForm } from "../views/JobOfferForm/OfferForm";
+import { AddOfferForm } from "../views/JobOfferForm/AddOfferForm";
 import { EditJobOfferForm } from "../views/JobOfferForm/EditOfferForm";
 import { JobOfferDetails } from "../views/JobOfferDetails/JobOfferDetails";
 
@@ -24,7 +24,7 @@ export function AppRoutes() {
           />
           <Route path={loginPath} element={<Login />} />
           <Route path={registerPath} element={<Signup />} />
-          <Route path={addJobOfferPath} element={<OfferForm />} />
+          <Route path={addJobOfferPath} element={<AddOfferForm />} />
           <Route
             path={`${editJobOfferPath}/:id`}
             element={<EditJobOfferForm />}

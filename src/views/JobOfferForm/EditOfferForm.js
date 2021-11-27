@@ -11,6 +11,7 @@ import { FormHeader } from "../../components/form/FormHeader";
 import { FormNotification } from "../../components/form/FormNotification";
 import { getSingleJobOffer } from "../../firebase/services/jobOffers";
 import { useFirestoreDoc } from "../../hooks/useFirestoreDoc";
+import { jobOfferDetailsPath } from "../../routes/AppRoutes";
 
 export function EditJobOfferForm() {
   const { id } = useParams();
@@ -53,6 +54,7 @@ export function EditJobOfferForm() {
                   title="Ogłoszenie zostało zaktualizowane poprawnie"
                   description="Jeżeli chcesz zobaczyć zaktualizowane ogłoszenie -"
                   strong="kliknij tutaj"
+                  path={`${jobOfferDetailsPath}/${id}`}
                 />
               )}
               {isError && (
