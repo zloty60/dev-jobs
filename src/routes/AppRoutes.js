@@ -8,6 +8,7 @@ import { Login } from "../views/Login";
 import { Signup } from "../views/Signup";
 import { OfferForm } from "../views/JobOfferForm/OfferForm";
 import { EditJobOfferForm } from "../views/JobOfferForm/EditOfferForm";
+import { JobOfferDetails } from "../views/JobOfferDetails/JobOfferDetails";
 
 export function AppRoutes() {
   return (
@@ -17,6 +18,10 @@ export function AppRoutes() {
         <Routes>
           <Route path="/" element={<RootView />} />
           <Route path="/category/:category" element={<RootView />} />
+          <Route
+            path={`${jobOfferDetailsPath}/:id`}
+            element={<JobOfferDetails />}
+          />
           <Route path={loginPath} element={<Login />} />
           <Route path={registerPath} element={<Signup />} />
           <Route path={addJobOfferPath} element={<OfferForm />} />
@@ -36,3 +41,4 @@ export const registerPath = "/utworz-konto";
 export const categoryPath = "/category";
 export const addJobOfferPath = "/dodaj";
 export const editJobOfferPath = "/edytuj";
+export const jobOfferDetailsPath = "/oferta";

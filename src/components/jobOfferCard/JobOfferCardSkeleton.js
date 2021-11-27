@@ -5,11 +5,7 @@ import Stack from "@mui/material/Stack";
 
 export function JobOfferCardSkeleton() {
   return (
-    <Card
-      sx={{
-        boxShadow: 1,
-      }}
-    >
+    <Card>
       <Box sx={{ padding: "20px" }}>
         <Stack spacing={1}>
           <Skeleton
