@@ -15,3 +15,9 @@ export async function registerInFirebase(creds) {
     throw error;
   }
 }
+
+export function listenToAuthState(fn) {
+  return firebaseInit.auth().onAuthStateChanged((user) => {
+    fn(user);
+  });
+}

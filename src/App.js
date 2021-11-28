@@ -7,6 +7,7 @@ import { indigo } from "@mui/material/colors";
 // eslint-disable-next-line no-unused-vars
 import { firebaseInit } from "./firebase/config/index";
 import { AppRoutes } from "./routes/AppRoutes";
+import { AuthProvider } from "./context/AuthContext";
 
 const theme = createTheme({
   palette: {
@@ -38,9 +39,11 @@ function App() {
         }}
       />
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AuthProvider>
       </ThemeProvider>
     </>
   );
