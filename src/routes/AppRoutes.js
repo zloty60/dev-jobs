@@ -5,7 +5,7 @@ import { Navbar } from "../components/layout/navbar/Navbar";
 import { RootView } from "../views/RootView";
 import { NotFound } from "../views/NotFound";
 import { Login } from "../views/Login";
-import { Signup } from "../views/Signup";
+import { Signup } from "../views/Signup/Signup";
 import { AddOfferForm } from "../views/JobOfferForm/AddOfferForm";
 import { EditJobOfferForm } from "../views/JobOfferForm/EditOfferForm";
 import { JobOfferDetails } from "../views/JobOfferDetails/JobOfferDetails";
