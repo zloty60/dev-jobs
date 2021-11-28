@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import { indigo } from "@mui/material/colors";
 
 import { AuthContext } from "../../../context/AuthContext";
+import { signOutUser } from "../../../firebase/services/auth";
 import { loginPath, registerPath } from "../../../routes/AppRoutes";
 
 const NavbarButton = ({ txt, marginRight, to }) => (
@@ -57,6 +58,14 @@ export function Navbar() {
               </Typography>
             </Box>
             <NavbarButton txt="dodaj ogłoszenie" to={"/dodaj"} />
+            <Button
+              onClick={signOutUser}
+              sx={{ marginLeft: 2 }}
+              variant="contained"
+              color="primary"
+            >
+              wyloguj
+            </Button>
           </Toolbar>
         </Container>
       </AppBar>

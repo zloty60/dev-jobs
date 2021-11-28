@@ -21,3 +21,7 @@ export function listenToAuthState(fn) {
     fn(user);
   });
 }
+
+export function signOutUser() {
+  return firebaseInit.auth().signOut();
+}
