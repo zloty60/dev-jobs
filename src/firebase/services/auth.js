@@ -16,6 +16,12 @@ export async function registerInFirebase(creds) {
   }
 }
 
+export function signInWithEmail(creds) {
+  return firebaseInit
+    .auth()
+    .signInWithEmailAndPassword(creds.email, creds.password);
+}
+
 export function listenToAuthState(fn) {
   return firebaseInit.auth().onAuthStateChanged((user) => {
     fn(user);

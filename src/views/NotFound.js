@@ -1,3 +1,18 @@
+import { useContext } from "react";
+
+import { AuthContext } from "../context/AuthContext";
+
 export function NotFound() {
-  return <p>nic nie znaleziono</p>;
+  const auth = useContext(AuthContext);
+  const { isAuth, status } = auth;
+
+  if (!isAuth && status === "success") {
+    return <p>nic nie znaleziono</p>;
+  }
+
+  if (isAuth && status === "success") {
+    return <p>nic nie znaleziono</p>;
+  }
+
+  return null;
 }
