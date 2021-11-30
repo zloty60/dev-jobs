@@ -1,4 +1,4 @@
-import { db } from "./../config/index";
+import { db, firebaseInit } from "./../config/index";
 
 export function getAllJobOffers(
   where = null,
@@ -39,7 +39,11 @@ export function getSingleJobOffer(id) {
 }
 
 export function addJobOffer(jobOffer) {
-  return db.collection("jobOffers").add(jobOffer);
+  const user = firebaseInit.auth().currentUser;
+  return db.collection("jobOffers").add({
+    ...jobOffer,
+    createdBy: user.uid,
+  });
 }
 
 export function updateJobOffer(jobOffer, id) {

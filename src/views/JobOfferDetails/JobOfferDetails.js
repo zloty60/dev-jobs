@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -19,9 +19,12 @@ import { useFirestoreDoc } from "../../hooks/useFirestoreDoc";
 import { getSingleJobOffer } from "../../firebase/services/jobOffers";
 import { formatDisplaySalary } from "../../utils/formatDisplaySalary";
 import { editJobOfferPath } from "../../routes/AppRoutes";
+import { AuthContext } from "../../context/AuthContext";
 
 export function JobOfferDetails() {
   const { id } = useParams();
+  const auth = useContext(AuthContext);
+  const { userProfile } = auth;
   const [isOpenDeleteAlert, setOpenDeleteAlert] = useState(false);
   const [isOfferDeleted, setOfferDeleted] = useState(false);
   const { status, data, error } = useFirestoreDoc(getSingleJobOffer, id);
@@ -65,6 +68,7 @@ export function JobOfferDetails() {
       salaryMax,
       salaryMin,
       jobDescription,
+      createdBy,
     } = data;
 
     return (
@@ -76,21 +80,27 @@ export function JobOfferDetails() {
             justifyContent: "flex-end",
           }}
         >
-          <Button
-            component={Link}
-            to={`${editJobOfferPath}/${id}`}
-            variant="outlined"
-            sx={{ marginRight: 2 }}
-          >
-            edytuj ogłoszenie
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            onClick={() => setOpenDeleteAlert(true)}
-          >
-            usuń ogłoszenie
-          </Button>
+          {auth.isAuth
+            ? userProfile.id === createdBy && (
+                <>
+                  <Button
+                    component={Link}
+                    to={`${editJobOfferPath}/${id}`}
+                    variant="outlined"
+                    sx={{ marginRight: 2 }}
+                  >
+                    edytuj ogłoszenie
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => setOpenDeleteAlert(true)}
+                  >
+                    usuń ogłoszenie
+                  </Button>
+                </>
+              )
+            : null}
         </Box>
         <Card>
           <Box

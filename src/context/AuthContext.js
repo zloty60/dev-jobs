@@ -31,13 +31,16 @@ export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log("auth check");
     const unsubscribe = listenToAuthState((user) => {
       if (user) {
         dispatch({ type: "START_SET_USER_PROFILE" });
         dispatch({
           type: "START_SET_USER_PROFILE_SUCCESS",
-          payload: { displayName: user.displayName, email: user.email },
+          payload: {
+            displayName: user.displayName,
+            email: user.email,
+            id: user.uid,
+          },
         });
       } else {
         dispatch({ type: "CLEAR_SET_USER_PROFILE" });
