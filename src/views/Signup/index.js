@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { Link as RouterLink, useNavigate, Navigate } from "react-router-dom";
+import { useState } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -19,11 +19,8 @@ import {
   addJobOfferPath,
 } from "../../routes/AppRoutes";
 import { registerInFirebase } from "../../firebase/services/auth";
-import { AuthContext } from "../../context/AuthContext";
 
 export function Signup() {
-  const auth = useContext(AuthContext);
-  const { isAuth } = auth;
   const navigate = useNavigate();
   const [isSignUpFail, setSignUpFail] = useState(false);
   const [signUpFailMessage, setSignUpFailMessage] = useState(null);
@@ -57,10 +54,6 @@ export function Signup() {
       }
     },
   });
-
-  if (isAuth) {
-    return <Navigate to={notificationPath} />;
-  }
 
   return (
     <Box sx={{ marginTop: "150px" }}>

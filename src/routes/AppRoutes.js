@@ -15,8 +15,13 @@ import { AuthContext } from "../context/AuthContext";
 
 function RequireAuth({ children, redirectTo }) {
   const auth = useContext(AuthContext);
-  const { isAuth } = auth;
-  return isAuth ? children : <Navigate to={redirectTo} />;
+  const { isAuth, status } = auth;
+
+  if (status === "success") {
+    return isAuth ? children : <Navigate to={redirectTo} />;
+  }
+
+  return null;
 }
 
 export function AppRoutes() {
