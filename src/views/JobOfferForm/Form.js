@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import MenuItem from "@mui/material/MenuItem";
 import LoadingButton from "@mui/lab/LoadingButton";
+import Typography from "@mui/material/Typography";
 import { indigo } from "@mui/material/colors";
 
 import { programmingLanguages } from "../../data/programmingLanguages";
 import { validationSchema } from "./validationSchema";
 import { addJobOffer, updateJobOffer } from "../../firebase/services/jobOffers";
+import { ImageUpload } from "./components/ImageUpload";
+import { firebaseStorage } from "../../firebase/config";
 
 const selectProps = {
   MenuProps: {
@@ -82,6 +86,8 @@ export function Form({
     createdAt: new Date(),
   };
 
+  const [files, setFiles] = useState([]);
+
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -92,6 +98,14 @@ export function Form({
         } else {
           const response = await addJobOffer(values);
           const id = response.id;
+
+          if (files.length > 0) {
+            const uploadImgPath = `images/${id}/${files[0].name}`;
+            const img = await firebaseStorage.ref(uploadImgPath).put(files[0]);
+            const imgUrl = await img.ref.getDownloadURL();
+            await updateJobOffer({ logoUrl: imgUrl }, id);
+          }
+
           setIdAddedOffer(id);
         }
 
@@ -242,6 +256,19 @@ export function Form({
           />
         </Grid>
       </Grid>
+      {!selectedJobOffer && (
+        <>
+          <Typography
+            variant="caption"
+            display="block"
+            gutterBottom
+            sx={{ marginTop: 2, marginBottom: 1 }}
+          >
+            *zdjęcie nie jest wymagane, maksymalny rozmiar zdjęcia to 3mb!
+          </Typography>
+          <ImageUpload files={files} setFiles={setFiles} />
+        </>
+      )}
       <LoadingButton
         type="submit"
         loading={formik.isSubmitting}

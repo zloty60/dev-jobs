@@ -41,13 +41,17 @@ export function JobOfferCard({ jobOffer }) {
               component="img"
               src={logoUrl}
               alt="company logo"
-              sx={{ height: "32px", maxWidth: "60px", objectFit: "contain" }}
+              sx={{
+                maxWidth: "90px",
+                maxHeight: "35px",
+                objectFit: "scale-down",
+              }}
             />
           ) : (
             <Avatar
               sx={{
-                width: "32px",
-                height: "32px",
+                width: "35px",
+                height: "35px",
                 backgroundColor: pink["A400"],
                 marginBottom: 1,
               }}
