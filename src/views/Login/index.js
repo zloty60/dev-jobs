@@ -13,9 +13,12 @@ import { pink } from "@mui/material/colors";
 
 import { Form } from "./components/Form";
 import { validationSchema } from "./validationSchema";
-import { registerPath } from "../../routes/AppRoutes";
+import {
+  registerPath,
+  notificationPath,
+  addJobOfferPath,
+} from "../../routes/AppRoutes";
 import { signInWithEmail } from "../../firebase/services/auth";
-import { notificationPath, addJobOfferPath } from "../../routes/AppRoutes";
 
 export function Login() {
   const navigate = useNavigate();
@@ -36,7 +39,7 @@ export function Login() {
           replace: true,
           state: {
             isSuccess: true,
-            alertTitle: "Konto zostało pomyślnie stworzone",
+            alertTitle: "Pomyślnie zalogowano",
             content: [
               { txt: "Dodaj nowe ogłosznie", path: addJobOfferPath },
               { txt: "Przeglądaj oferty pracy", path: "/" },

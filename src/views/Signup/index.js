@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link as RouterLink, useNavigate, Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -8,17 +8,23 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Alert from "@mui/material/Alert";
 import { pink } from "@mui/material/colors";
 
 import { validationSchema } from "./validationSchema";
-import { Form } from "./Form";
-import { NotificationWrapper } from "./NotificationWrapper";
-import { loginPath } from "../../routes/AppRoutes";
+import { Form } from "./components/Form";
+import {
+  loginPath,
+  notificationPath,
+  addJobOfferPath,
+} from "../../routes/AppRoutes";
 import { registerInFirebase } from "../../firebase/services/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 export function Signup() {
-  const [isFormSent, setFormSent] = useState(false);
-  const [isSignUpSuccessfully, setSignUpSuccessfully] = useState(false);
+  const auth = useContext(AuthContext);
+  const { isAuth } = auth;
+  const navigate = useNavigate();
   const [isSignUpFail, setSignUpFail] = useState(false);
   const [signUpFailMessage, setSignUpFailMessage] = useState(null);
 
@@ -33,24 +39,27 @@ export function Signup() {
     onSubmit: async (values) => {
       try {
         await registerInFirebase(values);
-        setFormSent(true);
-        setSignUpSuccessfully(true);
+        navigate(notificationPath, {
+          reloadDocument: true,
+          replace: true,
+          state: {
+            isSuccess: true,
+            alertTitle: "Konto zostało pomyślnie stworzone",
+            content: [
+              { txt: "Dodaj nowe ogłosznie", path: addJobOfferPath },
+              { txt: "Przeglądaj oferty pracy", path: "/" },
+            ],
+          },
+        });
       } catch (err) {
-        setFormSent(true);
         setSignUpFail(true);
         setSignUpFailMessage(err.message);
       }
     },
   });
 
-  if (isFormSent) {
-    return (
-      <NotificationWrapper
-        isSignUpSuccessfully={isSignUpSuccessfully}
-        isSignUpFail={isSignUpFail}
-        signUpFailMessage={signUpFailMessage}
-      />
-    );
+  if (isAuth) {
+    return <Navigate to={notificationPath} />;
   }
 
   return (
@@ -84,6 +93,11 @@ export function Signup() {
               </Typography>
             </Box>
             <Form formik={formik} />
+            {isSignUpFail && (
+              <Alert sx={{ marginTop: 1, marginBottom: 1 }} severity="error">
+                {signUpFailMessage}
+              </Alert>
+            )}
             <Link
               variant="body2"
               component={RouterLink}

@@ -1,23 +1,26 @@
 import { useContext } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 import { Navbar } from "../components/layout/navbar/Navbar";
 import { RootView } from "../views/RootView";
 import { NotFound } from "../views/NotFound";
-import { Login } from "../views/Login/index";
-import { Signup } from "../views/Signup/Signup";
+import { Login } from "../views/Login";
+import { Signup } from "../views/Signup";
 import { AddOfferForm } from "../views/JobOfferForm/AddOfferForm";
 import { EditJobOfferForm } from "../views/JobOfferForm/EditOfferForm";
 import { JobOfferDetails } from "../views/JobOfferDetails/JobOfferDetails";
 import { Notification } from "../views/Notification/Notification";
 import { AuthContext } from "../context/AuthContext";
 
-export function AppRoutes() {
-  const { key } = useLocation();
+function RequireAuth({ children, redirectTo }) {
   const auth = useContext(AuthContext);
   const { isAuth } = auth;
+  return isAuth ? children : <Navigate to={redirectTo} />;
+}
 
+export function AppRoutes() {
+  const { key } = useLocation();
   return (
     <>
       <Navbar />
@@ -29,26 +32,26 @@ export function AppRoutes() {
             path={`${jobOfferDetailsPath}/:id`}
             element={<JobOfferDetails />}
           />
-          {isAuth ? (
-            <>
-              <Route path={addJobOfferPath} element={<AddOfferForm />} />
-              <Route
-                path={`${editJobOfferPath}/:id`}
-                element={<EditJobOfferForm />}
-              />
-              <Route
-                path={notificationPath}
-                key={key}
-                element={<Notification />}
-              />
-            </>
-          ) : (
-            <>
-              <Route path={loginPath} element={<Login />} />
-              <Route path={registerPath} element={<Signup />} />
-            </>
-          )}
-
+          <Route
+            path={addJobOfferPath}
+            element={
+              <RequireAuth redirectTo={loginPath}>
+                <AddOfferForm />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={`${editJobOfferPath}/:id`}
+            element={
+              <RequireAuth redirectTo={loginPath}>
+                <EditJobOfferForm />
+              </RequireAuth>
+            }
+          />
+          <Route path={loginPath} element={<Login />} />
+          <Route path={registerPath} element={<Signup />} />
+          <Route path={notificationPath} key={key} element={<Notification />} />
+          <Route path={notFoundPath} element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>
@@ -63,3 +66,4 @@ export const addJobOfferPath = "/dodaj";
 export const editJobOfferPath = "/edytuj";
 export const jobOfferDetailsPath = "/oferta";
 export const notificationPath = "/powiadomienie";
+export const notFoundPath = "/not-found";
