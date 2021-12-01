@@ -1,107 +1,173 @@
-import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { indigo } from "@mui/material/colors";
+import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import BusinessIcon from "@mui/icons-material/Business";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { pink } from "@mui/material/colors";
 
 import { CardChip } from "../dataDisplay/CardChip";
-import { jobOfferDetailsPath } from "../../routes/AppRoutes";
 import { formatDisplaySalary } from "../../utils/formatDisplaySalary";
 
-export function JobOfferCard({ jobOffer }) {
+export function JobOfferCard({ jobOffer, sx }) {
   const {
-    category,
-    location,
+    logoUrl,
+    jobTitle,
     company,
     experienceLevel,
-    jobTitle,
-    logoUrl,
-    salaryMax,
+    category,
     salaryMin,
-    id,
+    salaryMax,
+    location,
   } = jobOffer;
+
   return (
-    <Link to={`${jobOfferDetailsPath}/${id}`}>
-      <Card
+    <Card sx={sx}>
+      <Box
         sx={{
-          "&:hover": {
-            boxShadow:
-              " 0  5px 10px rgba(154,160,185,0.4),0 15px 40px rgba(166,173,201,0.5)",
-            cursor: "pointer",
-          },
+          paddingTop: 2,
+          paddingBottom: 2,
+          paddingLeft: 2,
+          paddingRight: 3,
         }}
       >
-        <Box sx={{ padding: "20px" }}>
-          {logoUrl ? (
-            <Box
-              component="img"
-              src={logoUrl}
-              alt="company logo"
-              sx={{
-                maxWidth: "90px",
-                maxHeight: "35px",
-                objectFit: "scale-down",
-              }}
-            />
-          ) : (
-            <Avatar
-              sx={{
-                width: "35px",
-                height: "35px",
-                backgroundColor: pink["A400"],
-                marginBottom: 1,
-              }}
-            >
-              <BusinessIcon sx={{ fontSize: 17 }} />
-            </Avatar>
-          )}
-
-          <Typography
-            variant="h6"
-            component="h2"
-            gutterBottom
-            fontSize="19px"
+        <Grid container spacing={2}>
+          <Grid
+            item
+            xs={4}
+            md={3}
             sx={{
-              textTransform: "capitalize",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            {jobTitle}
-          </Typography>
-          <Box display="flex" alignItems="center">
-            <BusinessIcon />
-            <Typography
-              marginLeft={1}
-              variant="body2"
-              component="h3"
-              fontSize="15px"
-              color="textSecondary"
+            <Logo logoUrl={logoUrl} />
+          </Grid>
+          <Grid item xs={8} md={9}>
+            <Box
               sx={{
-                textTransform: "capitalize",
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                justifyContent: "space-between",
+                alignItems: "ceneter",
               }}
             >
-              {company}
-            </Typography>
-          </Box>
-          <Stack direction="row" spacing={1} sx={{ marginTop: "25px" }}>
-            <CardChip label={location} cursor="pointer" />
-            <CardChip label={experienceLevel} cursor="pointer" />
-            <CardChip label={category} cursor="pointer" />
-          </Stack>
-          <Typography
-            variant="h6"
-            component="h3"
-            color={indigo[600]}
-            sx={{ marginTop: "25px", fontSize: "17px" }}
-          >
-            {formatDisplaySalary(salaryMin)} - {formatDisplaySalary(salaryMax)}{" "}
-            PLN
-          </Typography>
-        </Box>
-      </Card>
-    </Link>
+              <Box>
+                <CardTitle jobTitle={jobTitle} />
+                <Box
+                  sx={{ display: "flex", flexWrap: "wrap", marginTop: "5px" }}
+                >
+                  <CardSubtitle txt={company} icon={<BusinessIcon />} />
+                  <CardSubtitle txt={location} icon={<LocationOnIcon />} />
+                </Box>
+              </Box>
+              <Box>
+                <CardSalary salaryMin={salaryMin} salaryMax={salaryMax} />
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{
+                    display: { xs: "none", md: "flex" },
+                    marginTop: "10px",
+                    justifyContent: { xs: "initial", md: "end" },
+                  }}
+                >
+                  <CardChip label={experienceLevel} cursor="pointer" />
+                  <CardChip label={category} cursor="pointer" />
+                </Stack>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Card>
   );
 }
+
+const Logo = ({ logoUrl }) => {
+  if (logoUrl) {
+    return (
+      <Box
+        component="img"
+        src={logoUrl}
+        alt="company logo"
+        sx={{
+          maxHeight: "30px",
+          display: "block",
+          width: "90%",
+          objectFit: "scale-down",
+        }}
+      />
+    );
+  }
+
+  return (
+    <Avatar
+      sx={{
+        width: "60px",
+        height: "60px",
+        backgroundColor: pink["A400"],
+      }}
+    >
+      <BusinessIcon sx={{ fontSize: 30 }} />
+    </Avatar>
+  );
+};
+
+const CardTitle = ({ jobTitle }) => {
+  return (
+    <Typography
+      variant="h6"
+      component="h2"
+      sx={{
+        textTransform: "capitalize",
+        wordBreak: "break-all",
+        fontSize: { xs: "18px", md: "20px" },
+      }}
+    >
+      {jobTitle}
+    </Typography>
+  );
+};
+
+const CardSubtitle = ({ txt, icon }) => {
+  return (
+    <Typography
+      sx={{
+        fontSize: "14px",
+        display: "flex",
+        alignItems: "center",
+        color: "#888d99",
+        fontWeight: "500",
+        wordBreak: "break-all",
+        marginRight: { xs: 1, md: 3 },
+      }}
+    >
+      {icon}
+      <Box component="span" sx={{ marginLeft: 1 }}>
+        {txt}
+      </Box>
+    </Typography>
+  );
+};
+
+const CardSalary = ({ salaryMin, salaryMax }) => {
+  return (
+    <Typography
+      variant="h6"
+      component="h3"
+      color={indigo[600]}
+      sx={{
+        fontSize: { xs: "16px", md: "18px" },
+        wordBreak: "break-all",
+        marginTop: { xs: "7px", md: "0px" },
+      }}
+    >
+      {formatDisplaySalary(salaryMin)} - {formatDisplaySalary(salaryMax)} PLN
+    </Typography>
+  );
+};
