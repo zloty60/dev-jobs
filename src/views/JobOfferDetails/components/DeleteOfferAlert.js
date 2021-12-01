@@ -3,7 +3,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
-import { deleteJobOffer } from "../../firebase/services/jobOffers";
+import { deleteJobOffer } from "../../../firebase/services/jobOffers";
 
 export function DeleteOfferAlert({
   open,

@@ -9,7 +9,7 @@ import { Login } from "../views/Login";
 import { Signup } from "../views/Signup";
 import { AddOfferForm } from "../views/JobOfferForm/AddOfferForm";
 import { EditJobOfferForm } from "../views/JobOfferForm/EditOfferForm";
-import { JobOfferDetails } from "../views/JobOfferDetails/JobOfferDetails";
+import { JobOfferDetails } from "../views/JobOfferDetails";
 import { Notification } from "../views/Notification/Notification";
 import { AuthContext } from "../context/AuthContext";
 
