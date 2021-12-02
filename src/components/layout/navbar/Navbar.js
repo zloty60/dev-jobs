@@ -1,18 +1,22 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import { indigo } from "@mui/material/colors";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { AuthContext } from "../../../context/AuthContext";
-import { signOutUser } from "../../../firebase/services/auth";
 import { loginPath, registerPath } from "../../../routes/AppRoutes";
+import { MobileMenuDrawer } from "./MobileMenuDrawer";
+import { AccountMenu } from "./AccountMenu";
 
-const NavbarButton = ({ txt, marginRight, to }) => (
+const NavbarButton = ({ txt, marginRight, to, sx }) => (
   <Button
     component={Link}
     to={to}
@@ -20,6 +24,7 @@ const NavbarButton = ({ txt, marginRight, to }) => (
     color="primary"
     sx={{
       marginRight: marginRight,
+      ...sx,
     }}
   >
     {txt}
@@ -29,6 +34,7 @@ const NavbarButton = ({ txt, marginRight, to }) => (
 export function Navbar() {
   const auth = useContext(AuthContext);
   const { status, isAuth } = auth;
+  const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
 
   if (status === "success" && isAuth) {
     return (
@@ -57,15 +63,12 @@ export function Navbar() {
                 Dev jobs
               </Typography>
             </Box>
-            <NavbarButton txt="dodaj ogłoszenie" to={"/dodaj"} />
-            <Button
-              onClick={signOutUser}
-              sx={{ marginLeft: 2 }}
-              variant="contained"
-              color="primary"
-            >
-              wyloguj
-            </Button>
+            <NavbarButton
+              sx={{ display: { xs: "none", sm: "block" } }}
+              txt="dodaj ogłoszenie"
+              to={"/dodaj"}
+            />
+            <AccountMenu />
           </Toolbar>
         </Container>
       </AppBar>
@@ -99,8 +102,26 @@ export function Navbar() {
                 Dev jobs
               </Typography>
             </Box>
-            <NavbarButton txt="Logowanie" to={loginPath} marginRight={2} />
-            <NavbarButton txt="Utwórz konto" to={registerPath} />
+            <Box sx={{ display: { xs: "block", sm: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => setOpenMobileMenu(!isOpenMobileMenu)}
+                color="inherit"
+              >
+                {isOpenMobileMenu ? <CloseIcon /> : <MenuIcon />}
+              </IconButton>
+              <MobileMenuDrawer
+                isOpenMobileMenu={isOpenMobileMenu}
+                setOpenMobileMenu={setOpenMobileMenu}
+              />
+            </Box>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <NavbarButton txt="Logowanie" to={loginPath} marginRight={2} />
+              <NavbarButton txt="Utwórz konto" to={registerPath} />
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
