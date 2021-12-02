@@ -1,18 +1,18 @@
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { indigo } from "@mui/material/colors";
+import { indigo, pink } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import BusinessIcon from "@mui/icons-material/Business";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { pink } from "@mui/material/colors";
 
 import { CardChip } from "../dataDisplay/CardChip";
 import { formatDisplaySalary } from "../../utils/formatDisplaySalary";
+import { programmingLanguages } from "../../data/programmingLanguages";
 
-export function JobOfferCard({ jobOffer, sx }) {
+export function JobOfferCard({ jobOffer, sx, cursor }) {
   const {
     logoUrl,
     jobTitle,
@@ -25,7 +25,7 @@ export function JobOfferCard({ jobOffer, sx }) {
   } = jobOffer;
 
   return (
-    <Card sx={sx}>
+    <Card sx={{ borderLeft: `4px solid ${setBorderColor(category)}`, ...sx }}>
       <Box
         sx={{
           paddingTop: 2,
@@ -76,8 +76,8 @@ export function JobOfferCard({ jobOffer, sx }) {
                     justifyContent: { xs: "initial", md: "end" },
                   }}
                 >
-                  <CardChip label={experienceLevel} cursor="pointer" />
-                  <CardChip label={category} cursor="pointer" />
+                  <CardChip label={experienceLevel} cursor={cursor} />
+                  <CardChip label={category} cursor={cursor} />
                 </Stack>
               </Box>
             </Box>
@@ -165,9 +165,18 @@ const CardSalary = ({ salaryMin, salaryMax }) => {
         fontSize: { xs: "16px", md: "18px" },
         wordBreak: "break-all",
         marginTop: { xs: "7px", md: "0px" },
+        textAlign: { xs: "initial", md: "right" },
       }}
     >
       {formatDisplaySalary(salaryMin)} - {formatDisplaySalary(salaryMax)} PLN
     </Typography>
   );
 };
+
+function setBorderColor(category) {
+  for (let i = 0; i < programmingLanguages.length; i++) {
+    if (programmingLanguages[i].value === category) {
+      return programmingLanguages[i].borderColor;
+    }
+  }
+}

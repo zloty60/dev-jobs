@@ -95,6 +95,7 @@ export function RootView() {
                             cursor: "pointer",
                           },
                         }}
+                        cursor="pointer"
                       />
                     </Link>
                   </Grid>
