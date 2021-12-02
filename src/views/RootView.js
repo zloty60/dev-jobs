@@ -39,7 +39,7 @@ export function RootView() {
     orderBy = [searchParams.orderBy, sortDirection];
   }
 
-  const { status, data, error } = useFirestoreCollection(
+  const { status, data } = useFirestoreCollection(
     getAllJobOffers,
     category,
     experienceLevel,
@@ -69,7 +69,7 @@ export function RootView() {
   }
 
   if (status === "error") {
-    return <p>{error}</p>;
+    return <p>coś poszło nie tak</p>;
   }
 
   if (status === "success") {

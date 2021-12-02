@@ -11,6 +11,7 @@ import { AddOfferForm } from "../views/JobOfferForm/AddOfferForm";
 import { EditJobOfferForm } from "../views/JobOfferForm/EditOfferForm";
 import { JobOfferDetails } from "../views/JobOfferDetails";
 import { Notification } from "../views/Notification/Notification";
+import { MyOffers } from "../views/MyOffers";
 import { AuthContext } from "../context/AuthContext";
 
 function RequireAuth({ children, redirectTo }) {
@@ -53,6 +54,14 @@ export function AppRoutes() {
               </RequireAuth>
             }
           />
+          <Route
+            path={myOffersPath}
+            element={
+              <RequireAuth redirectTo={loginPath}>
+                <MyOffers />
+              </RequireAuth>
+            }
+          />
           <Route path={loginPath} element={<Login />} />
           <Route path={registerPath} element={<Signup />} />
           <Route path={notificationPath} key={key} element={<Notification />} />
@@ -72,3 +81,4 @@ export const editJobOfferPath = "/edytuj";
 export const jobOfferDetailsPath = "/oferta";
 export const notificationPath = "/powiadomienie";
 export const notFoundPath = "/not-found";
+export const myOffersPath = "/moje-ogloszenia";

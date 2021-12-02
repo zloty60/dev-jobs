@@ -11,7 +11,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link } from "react-router-dom";
 
-import { addJobOfferPath } from "../../../routes/AppRoutes";
+import { addJobOfferPath, myOffersPath } from "../../../routes/AppRoutes";
 import { signOutUser } from "../../../firebase/services/auth";
 
 export function AccountMenu() {
@@ -73,7 +73,7 @@ export function AccountMenu() {
         </MenuItem>
         <MenuItem>
           <MenuLink
-            path={"/"}
+            path={myOffersPath}
             txt="Moje ogłoszenia"
             icon={<AssignmentIcon fontSize="small" />}
           />
