@@ -33,7 +33,7 @@ const NavbarButton = ({ txt, marginRight, to, sx }) => (
 
 export function Navbar() {
   const auth = useContext(AuthContext);
-  const { status, isAuth } = auth;
+  const { status, isAuth, userProfile } = auth;
   const [isOpenMobileMenu, setOpenMobileMenu] = useState(false);
 
   if (status === "success" && isAuth) {
@@ -68,7 +68,7 @@ export function Navbar() {
               txt="dodaj ogłoszenie"
               to={"/dodaj"}
             />
-            <AccountMenu />
+            <AccountMenu firstLetter={userProfile.displayName[0]} />
           </Toolbar>
         </Container>
       </AppBar>

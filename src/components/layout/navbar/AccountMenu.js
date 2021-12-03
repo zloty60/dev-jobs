@@ -15,7 +15,7 @@ import { indigo } from "@mui/material/colors";
 import { addJobOfferPath, myOffersPath } from "../../../routes/AppRoutes";
 import { signOutUser } from "../../../firebase/services/auth";
 
-export function AccountMenu() {
+export function AccountMenu({ firstLetter }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -28,8 +28,15 @@ export function AccountMenu() {
     <>
       <Tooltip title="Moje konto">
         <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-          <Avatar sx={{ width: 40, height: 40, backgroundColor: indigo[700] }}>
-            M
+          <Avatar
+            sx={{
+              width: 40,
+              height: 40,
+              backgroundColor: indigo[700],
+              textTransform: "uppercase",
+            }}
+          >
+            {firstLetter}
           </Avatar>
         </IconButton>
       </Tooltip>
