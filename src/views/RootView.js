@@ -80,7 +80,7 @@ export function RootView() {
             isMobileDrawerOpen={isMobileDrawerOpen}
             setMobileDrawerOpen={setMobileDrawerOpen}
           />
-          <Box sx={{ flexGrow: 1 }}>
+          <Box sx={{ flexGrow: 1, paddingBottom: "50px" }}>
             <Container maxWidth="md">
               <Grid container spacing={3}>
                 {data.map((jobOffer) => (

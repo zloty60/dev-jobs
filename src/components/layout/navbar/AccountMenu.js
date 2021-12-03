@@ -10,6 +10,7 @@ import Logout from "@mui/icons-material/Logout";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Link } from "react-router-dom";
+import { indigo } from "@mui/material/colors";
 
 import { addJobOfferPath, myOffersPath } from "../../../routes/AppRoutes";
 import { signOutUser } from "../../../firebase/services/auth";
@@ -27,7 +28,9 @@ export function AccountMenu() {
     <>
       <Tooltip title="Moje konto">
         <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          <Avatar sx={{ width: 40, height: 40, backgroundColor: indigo[700] }}>
+            M
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
